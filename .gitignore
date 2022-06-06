@@ -4,6 +4,9 @@
 logs
 *.log
 
+#api keys
+client/config/
+
 # Runtime data
 pids
 *.pid
