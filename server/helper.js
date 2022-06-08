@@ -1,6 +1,7 @@
 const axios = require('axios')
 const key = require('../client/config/config.js')
 const db = require('../database/database')
+const moment = require('moment')
 
 const airInfoGetter = (zipcode) => {
 
@@ -15,7 +16,13 @@ const airInfoGetter = (zipcode) => {
 
   return axios.request(options)
     .then((response)=>{
-      console.log('axios get req from api', response.data)
+
+      var dataDate = moment.utc(response.data.stations[0].updatedAt ).toDate();
+      var local = moment(dataDate).local().format('YYYY-MM-DD HH:mm:ss');
+
+      response.data.stations[0].updatedAt = local
+
+
       return response.data.stations[0]
     })
     .catch((err)=>{
@@ -26,32 +33,3 @@ const airInfoGetter = (zipcode) => {
 
 exports.airInfoGetter = airInfoGetter
 
-
-/*
-axios incoming data {
-  message: 'success',
-  stations: [
-    {
-      placeId: '6054f46a527c957188b759f819ee209f572bbbf4b170148a9624240f0e5e90f9',
-      CO: 0.21,
-      NO2: 3.527,
-      OZONE: 22.912,
-      PM10: 15,
-      PM25: 4.43,
-      SO2: 1,
-      city: 'CA',
-      countryCode: 'US',
-      division: 'San Mateo',
-      lat: 37.7058,
-      lng: -122.4619,
-      placeName: 'Daly City',
-      postalCode: '94016',
-      state: 'California',
-      updatedAt: '2022-06-06 19:00:00',
-      AQI: 21,
-      aqiInfo: [Object]
-    }
-  ]
-}
-
-*/

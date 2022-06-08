@@ -15,9 +15,7 @@ const airSchema = new mongoose.Schema({
   AQI: Number
 })
 
-
 const air = mongoose.model('air', airSchema)
-
 
 // save func
 const save = (data) => {
@@ -47,26 +45,3 @@ const retrieve = (zipcode) => {
 module.exports.save = save
 module.exports.retrieve = retrieve
 
-
-/*
-const airSchema = new mongoose.Schema({
-  placeId: String,
-  CO: Number,
-  NO2: Number,
-  OZONE: Number,
-  PM10: Number,
-  PM25: Number,
-  SO2: Number,
-  city: String,
-  countryCode: String,
-  division: String,
-  lat: Number,
-  lng: Number,
-  placeName: String,
-  postalCode: String,
-  state: String,
-  updatedAt: String,
-  AQI: Number,
-  aqiInfo: Object
-})
-*/

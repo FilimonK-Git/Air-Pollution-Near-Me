@@ -10,13 +10,13 @@ app.use(express.static('client'))
 
 
 let latestDateTime = new Date();
-let date = ("0" + latestDateTime.getUTCDate()).slice(-2);
-let month = ("0" + (latestDateTime.getUTCMonth() + 1)).slice(-2);
-let year = latestDateTime.getUTCFullYear();
-let hours = ("0" + latestDateTime.getUTCHours()).slice(-2);
-let minutes = latestDateTime.getUTCMinutes();
+let date = ("0" + latestDateTime.getDate()).slice(-2);
+let month = ("0" + (latestDateTime.getMonth() + 1)).slice(-2);
+let year = latestDateTime.getFullYear();
+let hours = ("0" + latestDateTime.getHours()).slice(-2);
+let minutes = latestDateTime.getMinutes();
 const currentDateTimeUTC = year + month + date + hours + minutes + '00';
-// console.log('curr date', currentDateTimeUTC)
+console.log('curr date', currentDateTimeUTC)
 
 // ONE GET ROUTE REQUIRED
 
@@ -25,15 +25,11 @@ app.post('/airq', (req, res) => {
   db.retrieve(req.body.zipSearch)
     .then((data)=>{
 
-      console.log('ret data', data)
-
       let latestDataDate;
       let timeDiff;
 
       if (data[0] !== undefined) {
         latestDataDate = data[0].updatedAt.replace(/\D/g,'')
-        // console.log('curr ', currentDateTimeUTC)
-        // console.log('latest ', latestDataDate)
         timeDiff = Number(currentDateTimeUTC) - Number(latestDataDate)
       }
 
@@ -56,8 +52,6 @@ app.post('/airq', (req, res) => {
                   updatedAt: data.updatedAt,
                   AQI: data.AQI
                 }
-                console.log('new data sending to c', newDataToClient)
-
                 res.send(newDataToClient)
               })
               .catch((err)=>{
@@ -85,9 +79,6 @@ app.post('/airq', (req, res) => {
           updatedAt: data[0].updatedAt,
           AQI: data[0].AQI
         }
-
-        console.log('existing data before sending to client', existingDataToClient)
-
         res.send(existingDataToClient)
       }
     })

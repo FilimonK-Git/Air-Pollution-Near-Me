@@ -20,7 +20,6 @@ class App extends React.Component {
       }
     }
     this.search = this.search.bind(this)
-
   }
 
   zipInput (zipcode) {
@@ -34,11 +33,6 @@ class App extends React.Component {
     if (this.state.zip.length === 5) {
       axios.post('/airq', {zipSearch: this.state.zip})
         .then((incomingData)=>{
-
-          console.log('axiii succ', incomingData.data) // [{..}]
-
-          // var newdata = data.data[0]
-
           this.setState({
             data: incomingData.data
           })
@@ -61,7 +55,7 @@ class App extends React.Component {
 
         <OutterAir airData={this.state.data}/>
 
-        {/* <FireAir /> */}
+        {/* <FireAir  /> */}
 
       </div>
     )
@@ -73,7 +67,7 @@ ReactDOM.render(<App />, document.getElementById('main'))
 
 /*
 
-import axios from 'axios'
+import axios  from 'axios'
 import OutterAir from './airdata.jsx'
 
 class App extends React.Component {
