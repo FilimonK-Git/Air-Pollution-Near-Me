@@ -18,11 +18,12 @@ const airSchema = new mongoose.Schema({
 const air = mongoose.model('air', airSchema)
 
 // save func
-const save = (data) => {
+const firstSave = (data) => {
+
+  // console.log('first save', data)
 
   return air.create(data)
     .then((data)=>{
-      console.log('data created and added to db:', data )
       return data
     })
     .catch((err)=>{
@@ -31,10 +32,41 @@ const save = (data) => {
 
 }
 
+
+const secondSave = (data) => {
+
+  // console.log('2nd save', data)
+
+  var dataToUpdatedWith = {
+    placeName: data.placeName,
+    state: data.state,
+    postalCode: data.postalCode,
+    PM25: data.PM25,
+    OZONE: data.OZONE,
+    CO: data.CO,
+    NO2: data.NO2,
+    SO2: data.SO2,
+    updatedAt: data.updatedAt,
+    AQI: data.AQI
+  }
+
+  return air.findOneAndUpdate({postalCode: data.postalCode}, data, {upsert: true})
+    .then((data)=>{
+      // console.log('post update', data)
+      return data
+    })
+    .catch((err)=>{
+      console.log('secondSave:  data not updated and added to db', err)
+    })
+
+}
+
+
 // retrieve func
 const retrieve = (zipcode) => {
   return air.find({postalCode: zipcode})
     .then((data)=>{
+      // console.log('data retrieved from air.find', data)
       return data
     })
     .catch((err)=>{
@@ -42,6 +74,7 @@ const retrieve = (zipcode) => {
     })
 }
 
-module.exports.save = save
+module.exports.firstSave = firstSave
+module.exports.secondSave = secondSave
 module.exports.retrieve = retrieve
 

@@ -1,3 +1,45 @@
-table, td {
+
+body {
+
+  /* margin-left: 250px ;
+  margin-right: 250px ; */
+
+  /* width:500px;
+  height:500px; */
+  position: fixed;
+  /* background-color: blue; */
+  top: 20%;
+  left: 20%;
+  margin-top: -150px;
+  margin-left: -100px;
+  /* margin-right: -150px; */
+
+}
+/*
+h2 {
+  margin-left: 250px ;
+}
+
+.zipInput {
+  display:grid;
+  margin-left: 300px ;
+  margin-bottom: 10px;
+}
+
+.zipSubmit {
+  display:grid;
+  margin-left: 350px ;
+} */
+
+
+td {
+  /* width: 800px;
+  height: 50px; */
+  margin-left: 2px ;
   border: 1px solid black;
+}
+img {
+  /* margin-left: 100px ; */
+  height: 100%;
+  width: 100%;
 }

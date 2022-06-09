@@ -17,11 +17,37 @@ const airInfoGetter = (zipcode) => {
   return axios.request(options)
     .then((response)=>{
 
-      var dataDate = moment.utc(response.data.stations[0].updatedAt ).toDate();
+      var dataDate = moment.utc(response.data.stations[0].updatedAt).toDate();
       var local = moment(dataDate).local().format('YYYY-MM-DD HH:mm:ss');
 
       response.data.stations[0].updatedAt = local
 
+      return response.data.stations[0]
+    })
+    .catch((err)=>{
+      console.log('err in axios get req from api', err)
+    })
+
+}
+
+const worstAQIgetter = () => {
+
+  const options2 = {
+    method: 'GET',
+    url: 'https://api.ambeedata.com/latest/by-country-code?countryCode=US/by-order/worst',
+    headers: {
+      'x-api-key': key.ambeeKey,
+      'Content-type': 'application/json'
+    }
+  }
+
+  return axios.request(options2)
+    .then((response)=>{
+
+      // var dataDate = moment.utc(response.data.stations[0].updatedAt).toDate();
+      // var local = moment(dataDate).local().format('YYYY-MM-DD HH:mm:ss');
+
+      // response.data.stations[0].updatedAt = local
 
       return response.data.stations[0]
     })
@@ -32,4 +58,5 @@ const airInfoGetter = (zipcode) => {
 }
 
 exports.airInfoGetter = airInfoGetter
+exports.worstAQIgetter = worstAQIgetter
 
