@@ -20,8 +20,6 @@ const air = mongoose.model('air', airSchema)
 // save func
 const firstSave = (data) => {
 
-  // console.log('first save', data)
-
   return air.create(data)
     .then((data)=>{
       return data
@@ -34,8 +32,6 @@ const firstSave = (data) => {
 
 
 const secondSave = (data) => {
-
-  // console.log('2nd save', data)
 
   var dataToUpdatedWith = {
     placeName: data.placeName,
@@ -50,9 +46,8 @@ const secondSave = (data) => {
     AQI: data.AQI
   }
 
-  return air.findOneAndUpdate({postalCode: data.postalCode}, data, {upsert: true})
+  return air.findOneAndUpdate({postalCode: data.postalCode}, dataToUpdatedWith, {new: true})
     .then((data)=>{
-      // console.log('post update', data)
       return data
     })
     .catch((err)=>{

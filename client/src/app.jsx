@@ -6,7 +6,6 @@ class App extends React.Component {
     super()
     this.state = {
       zip: '',
-      best: '',
       worst: '',
       data: {
         placeName: '',
@@ -22,20 +21,26 @@ class App extends React.Component {
       }
     }
     this.search = this.search.bind(this)
+    this.findWorst = this.findWorst.bind(this)
   }
 
   componentDidMount () {
-    // axios.get('/zz',)
-    // .then((incomingData)=>{
-    //   console.log( 'axios get  incoming Data', incomingData)
-    //   // this.setState({
-    //   //   data: incomingData.data
-    //   // })
-    // })
-    // .catch((err)=>{
-    //   console.log( 'axios client err', err)
-    // })
+
   }
+
+  findWorst() {
+    axios.get('/worst&best')
+    .then((incomingData)=>{
+      console.log( 'axios get findWorst incoming Data', incomingData.data) // [{worst}, {best}]
+      this.setState({
+        worst: incomingData.data[0]
+      })
+    })
+    .catch((err)=>{
+      console.log( 'axios client err', err)
+    })
+  }
+
 
   zipInput (zipcode) {
     this.setState({
@@ -49,7 +54,7 @@ class App extends React.Component {
     if (this.state.zip.length === 5) {
       axios.post('/airq', {zipSearch: this.state.zip})
         .then((incomingData)=>{
-          console.log( 'axios client  incoming Data', incomingData)
+          // console.log( 'axios client  incoming Data', incomingData)
           this.setState({
             data: incomingData.data
           })
@@ -64,16 +69,23 @@ class App extends React.Component {
   render () {
     return (
       <div>
-
-
-        <input className="zipInput" onChange={(e)=>{this.zipInput(e.target.value)}} name="zip" type="number" placeholder="Enter 5 digit zipcode"></input> <br></br>
+        <h2 className="title"> Air Pollution Near me </h2>
+        <input className="zipInput" onChange={(e)=>{this.zipInput(e.target.value)}} onKeyPress={this.search} name="zip" type="number" placeholder="Enter 5 digit zipcode"></input> <br></br>
 
         <button className="zipSubmit" type="submit" onClick={this.search}>submit</button>
-        <hr></hr>
+        <br></br>
 
-        <OutterAir airData={this.state.data}/>
+        <OutterAir airData={this.state.data} worstAir={this.state.worst} worstFinder={this.findWorst}/>
+        <img src="us_aqi.png"></img>
+
+        <p className="info">For more information, visit U.S. EPA's <a href="https://gispub.epa.gov/airnow/?monitors=none&contours=pm25&tab=current&showlegend=yes&xmin=-17608645.331997138&xmax=-1484712.837413204&ymin=2956891.6757645914&ymax=9619754.557325065" target="_blank">AirNow</a> live AQI map below</p>
+        <div class="map">
+          <iframe src="https://gispub.epa.gov/airnow/?monitors=none&contours=pm25&tab=current&xmin=-17608645.331997138&xmax=-4302487.448117193&ymin=2086121.0495400939&ymax=7271609.048405073" >
+          </iframe>
+        </div>
 
         {/* <FireAir  /> */}
+
 
       </div>
     )
@@ -82,74 +94,3 @@ class App extends React.Component {
 
 ReactDOM.render(<App />, document.getElementById('main'))
 
-
-/*
-
-import axios  from 'axios'
-import OutterAir from './airdata.jsx'
-
-class App extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      zip: '',
-      data: [{
-        placeName: '',
-        state: '',
-        postalCode: '',
-        PM25: '',
-        OZONE: '',
-        CO: '',
-        NO2: '',
-        SO2: '',
-        updatedAt: '2000-01-01 00:00:00',
-        AQI: ''
-      }]
-    }
-    this.search = this.search.bind(this)
-
-  }
-
-  zipInput (zipcode) {
-    this.setState({
-      zip: zipcode
-    })
-  }
-
-  search () {
-
-    if (this.state.zip.length === 5) {
-      axios.post('/airq', {zipSearch: this.state.zip})
-        .then((data)=>{
-          this.setState({
-            data: [data.data]
-          })
-        })
-        .catch((err)=>{
-          console.log( 'axios client err', err)
-        })
-    }
-  }
-
-  render () {
-    return (
-      <div>
-        <div> Air Pollution Near me </div> <hr></hr>
-
-        <input onChange={(e)=>{this.zipInput(e.target.value)}} name="zip" type="number" placeholder="Enter 5 digit zipcode"></input> <br></br>
-
-        <button type="submit" onClick={this.search}>submit</button>
-        <hr></hr>
-
-        <OutterAir airData={this.state.data[0]}/>
-
-
-
-        </div>
-        )
-      }
-    }
-
-    ReactDOM.render(<App />, document.getElementById('main'))
-
-*/

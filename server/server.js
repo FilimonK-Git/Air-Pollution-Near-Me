@@ -19,25 +19,16 @@ app.post('/airq', (req, res) => {
   db.retrieve(req.body.zipSearch)
     .then((data)=>{
 
-      if (data[0] !== undefined) {
+      if (data[0]) {
+        var timeLapse =moment(data[0].updatedAt, "YYYY-MM-DD HH:mm:ss").fromNow();
 
-        var timeLapse =moment(data[0].updatedAt, "MM/DD/YYYY HH:mm:ss").fromNow();
-
-        var timeLapseNum
-        if(timeLapse.split(' ')[1] === 'hours') {
-          timeLapseNum = Number(timeLapse.slice(0,2))
-        } else {
-          timeLapseNum = 0
-        }
-
-        if (timeLapseNum >= 2) {
+        if (timeLapse.includes('hours') || timeLapse.includes('day') || timeLapse.includes('year')) {
 
           api.airInfoGetter(req.body.zipSearch)
             .then((data)=>{
-              db.secondSave(data) // saving in addition to new data... not replacing
+              // console.log('2nd get saved data in SERVER', data)
+              db.secondSave(data)
                 .then((data)=>{
-
-                  // console.log('secondSave saved data in SERVER', data)
 
                   var updatedDataToClient = {
                     placeName: data.placeName,
@@ -64,28 +55,14 @@ app.post('/airq', (req, res) => {
           })
 
         } else {
-          var existingDataToClient = {
-            placeName: data[0].placeName,
-            state: data[0].state,
-            postalCode: data[0].postalCode,
-            PM25: data[0].PM25,
-            OZONE: data[0].OZONE,
-            CO: data[0].CO,
-            NO2: data[0].NO2,
-            SO2: data[0].SO2,
-            updatedAt: data[0].updatedAt,
-            AQI: data[0].AQI
-          }
           res.send(data[0])
         }
       } else {
 
         api.airInfoGetter(req.body.zipSearch)
           .then((data)=>{
-            db.firstSave(data) // saving in addition to new data... not replacing
+            db.firstSave(data)
               .then((data)=>{
-
-                // console.log('saved data', data)
 
                 var newDataToClient = {
                   placeName: data.placeName,
@@ -102,7 +79,7 @@ app.post('/airq', (req, res) => {
                 res.send(newDataToClient)
               })
               .catch((err)=>{
-                // console.log('data not saved in db from server', err)
+                console.log('data not saved in db from server', err)
                 res.status(400)
               })
           })
@@ -121,18 +98,22 @@ app.post('/airq', (req, res) => {
 
 
 
-// app.get('/zz', (req, res) => {
-//   console.log('get home fired')
-//   api.worstAQIgetter(req.body.zipSearch)
-//     .then((data)=>{
-//       console.log('get worst', data)
-//       res.send(data)
-//       })
-//      .catch((err)=>{
-//         console.log('axios req failed in server', err)
-//         res.status(400)
-//      })
-// })
+app.get('/worst&best', (req, res) => {
+  console.log('get home fired')
+
+  // UNCOMMENT OUT WHEN READY TO CALL API FOR WORST CASES
+
+  Promise.all([api.worstAQIgetter()]) // , api.bestAQIgetter()
+    .then((data)=>{
+      // console.log('worst only', data)
+      res.send(data)
+      })
+    .catch((err)=>{
+        console.log('axios worst/best req failed in server', err)
+        res.status(400)
+    })
+
+})
 
 
 app.listen(port, ()=>{

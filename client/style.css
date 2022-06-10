@@ -1,45 +1,135 @@
 
 body {
-
-  /* margin-left: 250px ;
-  margin-right: 250px ; */
-
-  /* width:500px;
-  height:500px; */
-  position: fixed;
-  /* background-color: blue; */
-  top: 20%;
-  left: 20%;
-  margin-top: -150px;
-  margin-left: -100px;
-  /* margin-right: -150px; */
-
+  background-image: url("https://i.gifer.com/2D2M.gif");
+  background-size: cover;
+  margin: -20px 250px 0 250px;
 }
-/*
+
+p {
+  text-align: center;
+}
+
+
+@keyframes glow1 {
+  to {
+      text-shadow: 0 0 20px rgb(87, 215, 27);
+  }
+}
+.aqi1 {
+  animation: glow1 .5s linear infinite alternate;
+}
+
+
+@keyframes glow2 {
+  to {
+      text-shadow: 0 0 20px rgb(253, 253, 87)
+  }
+}
+.aqi2 {
+  animation: glow2 .5s linear infinite alternate;
+}
+
+@keyframes glow3 {
+  to {
+      text-shadow: 0 0 20px rgb(248, 143, 5)
+  }
+}
+.aqi3 {
+  animation: glow3 .5s linear infinite alternate;
+}
+
+
+.good {
+  height: 10px;
+  width: 10px;
+  margin-right: 3px;
+  background-color: rgb(118, 219, 3);
+  border-radius: 50%;
+  display: inline-block;
+}
+.semi {
+  height: 10px;
+  width: 10px;
+  margin-right: 3px;
+  background-color: rgb(231, 220, 7);
+  border-radius: 50%;
+  display: inline-block;
+}
+.bad {
+  height: 10px;
+  width: 10px;
+  margin-right: 3px;
+  background-color: rgb(242, 31, 31);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+
+.main, img, map {
+  background-color: rgb(255, 255, 255);
+}
+
+table {
+  margin-left: 200px;
+  border-collapse: collapse;
+  width: 70%;
+  /* align-content: center; */
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {background-color: rgb(203, 200, 155);}
+
+
+iframe {
+  border: 0px none;
+  margin-left: -185px;
+  height: 859px;
+  margin-top: -533px;
+  width: 926px;
+}
+
+.map {
+  margin-top: 100px;
+  border: 3px solid rgb(201, 0, 1);
+  overflow: hidden;
+  margin: 15px auto;
+  max-width: 736px;
+}
+
 h2 {
-  margin-left: 250px ;
+  padding-top: 20px;
+  text-align: center;
 }
 
-.zipInput {
-  display:grid;
-  margin-left: 300px ;
-  margin-bottom: 10px;
-}
-
-.zipSubmit {
-  display:grid;
-  margin-left: 350px ;
+/* .outter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto
 } */
 
 
-td {
-  /* width: 800px;
-  height: 50px; */
-  margin-left: 2px ;
-  border: 1px solid black;
+.zipInput {
+  display: block;
+  margin-left: auto;
+  margin-right: auto
 }
+
+.zipSubmit {
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+}
+
+
 img {
-  /* margin-left: 100px ; */
-  height: 100%;
-  width: 100%;
+  height: 60%;
+  width: 55%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto
 }
