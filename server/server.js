@@ -61,27 +61,35 @@ app.post('/airq', (req, res) => {
 
         api.airInfoGetter(req.body.zipSearch)
           .then((data)=>{
-            db.firstSave(data)
-              .then((data)=>{
 
-                var newDataToClient = {
-                  placeName: data.placeName,
-                  state: data.state,
-                  postalCode: data.postalCode,
-                  PM25: data.PM25,
-                  OZONE: data.OZONE,
-                  CO: data.CO,
-                  NO2: data.NO2,
-                  SO2: data.SO2,
-                  updatedAt: data.updatedAt,
-                  AQI: data.AQI
-                }
-                res.send(newDataToClient)
-              })
-              .catch((err)=>{
-                console.log('data not saved in db from server', err)
-                res.status(400)
-              })
+            console.log('data HERE', data instanceof Error)
+
+            if (data instanceof Error) {
+              res.send('Data not available!')
+            } else {
+
+              db.firstSave(data)
+                .then((data)=>{
+
+                  var newDataToClient = {
+                    placeName: data.placeName,
+                    state: data.state,
+                    postalCode: data.postalCode,
+                    PM25: data.PM25,
+                    OZONE: data.OZONE,
+                    CO: data.CO,
+                    NO2: data.NO2,
+                    SO2: data.SO2,
+                    updatedAt: data.updatedAt,
+                    AQI: data.AQI
+                  }
+                  res.send(newDataToClient)
+                })
+                .catch((err)=>{
+                  console.log('data not saved in db from server', err)
+                  res.status(400)
+                })
+            }
           })
           .catch((err)=>{
             console.log('axios req failed in server', err)

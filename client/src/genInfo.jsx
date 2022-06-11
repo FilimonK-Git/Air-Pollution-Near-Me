@@ -17,7 +17,7 @@ const GeneralInfo = (props) => {
 
         <p> Latest available data was collected on <em>{dataDateTime.toLocaleString()}</em>, about {timeDiff} from your local time <em>{localTime}. </em></p>
 
-        <p>  Data Source: <a href="https://www.getambee.com/" target="_blank">Ambee DataAir</a></p>
+        <p>  Data powered by: <a href="https://www.getambee.com/" target="_blank">Ambee DataAir</a></p>
         <br></br>
 
      </div>

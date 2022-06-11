@@ -17,15 +17,23 @@ const airInfoGetter = (zipcode) => {
   return axios.request(options)
     .then((response)=>{
 
-      var dataDate = moment.utc(response.data.stations[0].updatedAt).toDate();
-      var local = moment(dataDate).local().format('YYYY-MM-DD HH:mm:ss');
+      console.log('bad zip req', response.data)
 
-      response.data.stations[0].updatedAt = local
 
-      return response.data.stations[0]
+      if (response.data.stations[0]) {
+        var dataDate = moment.utc(response.data.stations[0].updatedAt).toDate();
+        var local = moment(dataDate).local().format('YYYY-MM-DD HH:mm:ss');
+
+        response.data.stations[0].updatedAt = local
+        return response.data.stations[0]
+
+      } else {
+        return response.data
+      }
     })
-    .catch((err)=>{
-      console.log('err in axios get req from api', err)
+    .catch((response)=>{
+      return response
+      console.log('err in axios get req from api')
     })
 
 }
