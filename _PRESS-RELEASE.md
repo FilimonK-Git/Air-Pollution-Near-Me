@@ -19,13 +19,12 @@ Initial git commit message: "press release v0 Jun5-2022"
 
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
+  Air Pollution Near Me
+
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
 
-  Air Pollution Near Me
   Care about the air you breath? This app is for you!
-
-
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.

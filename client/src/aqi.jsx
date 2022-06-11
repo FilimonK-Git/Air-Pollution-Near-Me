@@ -68,7 +68,7 @@ const Comparer = (props) => {
       return (
         <div>
           <p>
-          Relatively, the worst current AQI is reported from {props.worstAir.placeName} ({props.worstAir.state}, {props.worstAir.countryCode}) with an AQI of <b>{props.worstAir.AQI}</b>, due to high pollutant levels such as PM2.5 {props.worstAir.PM25} (ug/m3)</p>
+          Globally, the worst current AQI is reported from {props.worstAir.placeName} ({props.worstAir.state}, {props.worstAir.countryCode}) with an AQI of <b>{props.worstAir.AQI}</b>, due to high pollutant levels such as PM2.5 {props.worstAir.PM25} (ug/m3)</p>
 
         </div>
       )

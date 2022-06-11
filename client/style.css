@@ -70,13 +70,14 @@ p {
 }
 
 table {
-  margin-left: 200px;
+  margin-left: 80px;
   border-collapse: collapse;
-  width: 70%;
+  /* width: 70%; */
   /* align-content: center; */
 }
 
 th, td {
+  width: max-content;
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ddd;

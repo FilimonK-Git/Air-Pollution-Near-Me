@@ -2,6 +2,17 @@ const mongoose = require('mongoose')
 
 mongoose.connect('mongodb://localhost/airDB')
 
+console.log('mongo state: ', mongoose.connection.readyState)
+/*
+ready states being:
+
+0: disconnected
+1: connected
+2: connecting
+3: disconnecting
+*/
+
+
 const airSchema = new mongoose.Schema({
   placeName: String,
   state: String,
@@ -17,6 +28,7 @@ const airSchema = new mongoose.Schema({
 
 const air = mongoose.model('air', airSchema)
 
+console.log('mongo state 2nd log: ', mongoose.connection.readyState)
 // save func
 const firstSave = (data) => {
 
