@@ -7,7 +7,7 @@
 Just as your dry cloth and skin will thank you for the precaution you take, your precious hard-working lungs will thank you for taking them into consideration when you travel outdoors. 
 Informed people do make the right choices, and knowing the current air pollution levels of a neighborhood or historical trend of a travel destination can help you make informed travel decisions
 
-![first]() ![second]() ![third]()
+![first](https://media.giphy.com/media/fPI7XYwXoSAdqPkVrc/giphy.gif) ![second]() ![third]()
 
 
 
