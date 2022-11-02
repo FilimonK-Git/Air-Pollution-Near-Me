@@ -18,7 +18,7 @@ Informed people do make the right choices, and knowing the current air pollution
 ## Solution ##
   > The elegancy of our app is derived from a partnership with Ambee DataAir Technologies and their excellent api services. With ground and satelitte based air pollution data streams from over 90 countries worldwide, we stand on the shoulders of giants to streamline data consumption and have perfected the easy-of-use for our clients.
   
-  > "We can make a difference in peoples' lives by allowing them to make informed decision about their travling activities by giving them the most latest data of the air state near them. Our obligation is to povide a simple gateway between them and a clean, simple and robust information."
+  > "We can make a difference in peoples' lives by allowing them to make informed decision about their travling activities by giving them the most latest data of the air state near them. Our obligation is to povide a simple gateway between them and a clean, simple and robust information." F.Kiros
 
 
 
