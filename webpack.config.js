@@ -1,27 +1,35 @@
-const path = require('path')
-const SRC = path.join(__dirname, '/client/src')
-const DIS = path.join(__dirname, '/client/dist')
+const path = require("path");
+const SRC = path.join(__dirname, "/client/src");
+const DIS = path.join(__dirname, "/client/dist");
 
 module.exports = {
   mode: "development",
   entry: `${SRC}/app.jsx`,
   output: {
-    filename: 'bundle.js',
-    path: DIS
+    filename: "bundle.js",
+    path: DIS,
+  },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
   module: {
-    rules: [      {
-        test: /\.jsx?/,
-        use: {
-          loader: 'babel-loader'
-        }
-      }
-    ]
+    rules: [
+      {
+        test: /\.(t|j)sx?$/,
+        use: { loader: "ts-loader" },
+        exclude: /node_modules/,
+      },
+      {
+        enforce: "pre",
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "source-map-loader",
+      },
+    ],
   },
-//   performance: {
-//     hints: false,
-//     maxEntrypointSize: 512000,
-//     maxAssetSize: 512000
-// }
-}
-
+  externals: {
+    react: "React",
+    "react-dom": "ReactDOM",
+  },
+  devtool: "source-map",
+};

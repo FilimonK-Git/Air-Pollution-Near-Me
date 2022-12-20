@@ -1,8 +1,8 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-mongoose.connect('mongodb://localhost/airDB')
+mongoose.connect("mongodb://localhost/airDB");
 
-console.log('mongo state: ', mongoose.connection.readyState)
+// console.log('mongo state: ', mongoose.connection.readyState)
 /*
 ready states being:
 
@@ -11,7 +11,6 @@ ready states being:
 2: connecting
 3: disconnecting
 */
-
 
 const airSchema = new mongoose.Schema({
   placeName: String,
@@ -23,28 +22,26 @@ const airSchema = new mongoose.Schema({
   NO2: Number,
   SO2: Number,
   updatedAt: String,
-  AQI: Number
-})
+  AQI: Number,
+});
 
-const air = mongoose.model('air', airSchema)
+const air = mongoose.model("air", airSchema);
 
-console.log('mongo state 2nd log: ', mongoose.connection.readyState)
+console.log("mongo state 2nd log: ", mongoose.connection.readyState);
 // save func
 const firstSave = (data) => {
-
-  return air.create(data)
-    .then((data)=>{
-      return data
+  console.log("***DBBB**", data);
+  return air
+    .create(data)
+    .then((data) => {
+      return data;
     })
-    .catch((err)=>{
-      console.log('data not created and added to db', err)
-    })
-
-}
-
+    .catch((err) => {
+      console.log("data not created and added to db", err);
+    });
+};
 
 const secondSave = (data) => {
-
   var dataToUpdatedWith = {
     placeName: data.placeName,
     state: data.state,
@@ -55,33 +52,34 @@ const secondSave = (data) => {
     NO2: data.NO2,
     SO2: data.SO2,
     updatedAt: data.updatedAt,
-    AQI: data.AQI
-  }
+    AQI: data.AQI,
+  };
 
-  return air.findOneAndUpdate({postalCode: data.postalCode}, dataToUpdatedWith, {new: true})
-    .then((data)=>{
-      return data
+  return air
+    .findOneAndUpdate({ postalCode: data.postalCode }, dataToUpdatedWith, {
+      new: true,
     })
-    .catch((err)=>{
-      console.log('secondSave:  data not updated and added to db', err)
+    .then((data) => {
+      return data;
     })
-
-}
-
+    .catch((err) => {
+      console.log("secondSave:  data not updated and added to db", err);
+    });
+};
 
 // retrieve func
 const retrieve = (zipcode) => {
-  return air.find({postalCode: zipcode})
-    .then((data)=>{
+  return air
+    .find({ postalCode: zipcode })
+    .then((data) => {
       // console.log('data retrieved from air.find', data)
-      return data
+      return data;
     })
-    .catch((err)=>{
-      console.log('data not  in db', err)
-    })
-}
+    .catch((err) => {
+      console.log("data not  in db", err);
+    });
+};
 
-module.exports.firstSave = firstSave
-module.exports.secondSave = secondSave
-module.exports.retrieve = retrieve
-
+module.exports.firstSave = firstSave;
+module.exports.secondSave = secondSave;
+module.exports.retrieve = retrieve;
