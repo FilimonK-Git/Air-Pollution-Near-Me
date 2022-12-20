@@ -8,13 +8,14 @@ type props = {
     placeName: string,
     state: string,
     countryCode: string,
-    AQI: number,
+    AQI: string,
     PM25: number
   }
 }
 
+// in-line css with tailwind and SASS?
 
-const InnerAir = ({worstFinder,aqi,worstAir} :props) => {
+export function InnerAir ({worstFinder,aqi,worstAir} :props) {
 
   if (aqi !== "") {
     var currAQI = Number(aqi)
@@ -67,6 +68,8 @@ const InnerAir = ({worstFinder,aqi,worstAir} :props) => {
           <AirComparer {...worstAir}/>
         </div>
       )
+    } else {
+      return (null)
     }
 
   } else {
@@ -75,4 +78,4 @@ const InnerAir = ({worstFinder,aqi,worstAir} :props) => {
 }
 
 
-export default InnerAir
+// export default InnerAir

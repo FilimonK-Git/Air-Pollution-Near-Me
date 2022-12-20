@@ -1,31 +1,57 @@
+import React from "react";
+import ReactDOM from "react-dom";
 import axios from "axios";
-import OutterAir from "./airdata.jsx";
+import { OuterAir } from "./airdata";
 
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
+interface AppStates {
+  zip: string,
+  worst: {
+    placeName: string,
+    state: string,
+    countryCode: string,
+    AQI: string,
+    PM25: number
+  },
+  badZip: boolean,
+  data: {
+    placeName: string,
+    state: string,
+    postalCode: string,
+    PM25: number,
+    OZONE: number,
+    CO: number,
+    NO2: number,
+    SO2: number,
+    updatedAt: string,
+    AQI: string
+  }
+}
+
+class App extends React.Component<{}, AppStates> {
+
+    state: AppStates = {
       zip: "",
-      worst: "",
+      worst: {
+        placeName: "",
+        state: '',
+        countryCode: "",
+        AQI: "",
+        PM25: 0
+      },
       badZip: false,
       data: {
         placeName: "",
         state: "",
         postalCode: "",
-        PM25: "",
-        OZONE: "",
-        CO: "",
-        NO2: "",
-        SO2: "",
+        PM25: 0,
+        OZONE: 0,
+        CO: 0,
+        NO2: 0,
+        SO2: 0,
         updatedAt: "2000-01-01 00:00:00",
         AQI: "",
       },
     };
-    this.search = this.search.bind(this);
-    this.findWorst = this.findWorst.bind(this);
-  }
-
-  componentDidMount() {}
 
   findWorst() {
     axios
@@ -41,7 +67,7 @@ class App extends React.Component {
       });
   }
 
-  zipInput(zipcode) {
+  zipInput(zipcode: string) {
     this.setState({
       zip: zipcode,
     });
@@ -106,7 +132,7 @@ class App extends React.Component {
             </a>{" "}
             live AQI map below
           </p>
-          <div class="map">
+          <div className="map">
             <iframe src="https://gispub.epa.gov/airnow/?monitors=none&contours=pm25&tab=current&xmin=-17608645.331997138&xmax=-4302487.448117193&ymin=2086121.0495400939&ymax=7271609.048405073"></iframe>
           </div>
           {/* <FireAir   /> */}
@@ -128,14 +154,14 @@ class App extends React.Component {
             placeholder="Enter 5 digit zipcode"
           ></input>{" "}
           <br></br>
-          <button className="zipSubmit" type="submit" onClick={this.search}>
+          <button className="zipSubmit" type="submit" onClick={this.search.bind(this)}>
             submit
           </button>
           <br></br>
-          <OutterAir
+          <OuterAir
             airData={this.state.data}
             worstAir={this.state.worst}
-            worstFinder={this.findWorst}
+            worstFinder={this.findWorst.bind(this)}
           />
           <img src="us_aqi.png"></img>
           <p className="info">
@@ -148,7 +174,7 @@ class App extends React.Component {
             </a>{" "}
             live AQI map below
           </p>
-          <div class="map">
+          <div className="map">
             <iframe src="https://gispub.epa.gov/airnow/?monitors=none&contours=pm25&tab=current&xmin=-17608645.331997138&xmax=-4302487.448117193&ymin=2086121.0495400939&ymax=7271609.048405073"></iframe>
           </div>
           {/* <FireAir   /> */}

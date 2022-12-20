@@ -3,29 +3,26 @@ import * as moment from "moment";
 moment().format();
 
 type props = {
-  genInfo: {
-    airData: {
-      updatedAt: string,
-      placeName: string,
-      state: string,
-    },
-  },
+  updatedAt: string,
+  placeName: string,
+  state: string,
+
 }
 
-const GeneralInfo = ({genInfo} :props) => {
-  const dataCaptureDateTime = genInfo.airData.updatedAt;
+export function GeneralInfo ({updatedAt, placeName, state} :props) {
+  const dataCaptureDateTime = updatedAt;
   const dataDateTime = new Date(dataCaptureDateTime);
   const localTime = moment().format("h:mm:ss A");
   const dataDateTimeSTR = dataDateTime.toLocaleString();
   const timeDiff = moment(dataDateTimeSTR, "MM/DD/YYYY HH:mm:ss a").fromNow();
 
-  if (genInfo.airData.placeName !== "") {
+  if (placeName !== "") {
     return (
       <div className="locDataTime">
         <p>
           Here's your latest air pollution data for{" "}
           <b>
-            {genInfo.airData.placeName}, {genInfo.airData.state}
+            {placeName}, {state}
           </b>
           .
         </p>
@@ -44,7 +41,9 @@ const GeneralInfo = ({genInfo} :props) => {
         <br></br>
       </div>
     );
+  } else {
+    return (null)
   }
 };
 
-export default GeneralInfo;
+// export default GeneralInfo;

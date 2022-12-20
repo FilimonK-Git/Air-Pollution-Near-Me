@@ -1,13 +1,37 @@
-import GeneralInfo from "./genInfo.tsx";
-import InnerAir from "./aqi.tsx";
+import React from 'react'
+import {GeneralInfo} from "./genInfo";
+import {InnerAir} from "./aqi";
 
-const OutterAir = (props) => {
-  // console.log('OutterAir props', props)
 
-  if (props.airData.placeName !== "") {
+type props = {
+  worstFinder: () => void,
+  worstAir: {
+    placeName: string,
+    state: string,
+    countryCode: string,
+    AQI: string,
+    PM25: number
+  },
+  airData: {
+    updatedAt: string,
+    placeName: string,
+    state: string,
+    PM25:number,
+    OZONE: number,
+    NO2: number,
+    SO2: number,
+    CO: number,
+    AQI: string,
+  },
+
+}
+
+export function OuterAir ({worstFinder,airData,worstAir} :props) {
+
+  if (airData.placeName !== "") {
     return (
       <div className="outter">
-        <GeneralInfo genInfo={props} />
+        <GeneralInfo {...airData} />
 
         <table>
           <tbody>
@@ -32,12 +56,12 @@ const OutterAir = (props) => {
                   Fine particles
                 </a>
               </td>
-              <td> {Number(props.airData.PM25).toFixed(1)} ug/m3</td>
+              <td> {Number(airData.PM25).toFixed(1)} ug/m3</td>
               <td> 35 ug/m3 (24-hour)</td>
               <td>
                 {" "}
-                <span class="good"></span>{" "}
-                {(35 - props.airData.PM25).toFixed(1)} ug/m3 less
+                <span className="good"></span>{" "}
+                {(35 - airData.PM25).toFixed(1)} ug/m3 less
               </td>
             </tr>
 
@@ -51,12 +75,12 @@ const OutterAir = (props) => {
                   Ozone
                 </a>
               </td>
-              <td> {Number(props.airData.OZONE).toFixed(1)} ppb</td>
+              <td> {Number(airData.OZONE).toFixed(1)} ppb</td>
               <td> 70 ppb (8-hour) </td>
               <td>
                 {" "}
-                <span class="semi"></span>{" "}
-                {(70 - props.airData.OZONE).toFixed(1)} ppb less
+                <span className="semi"></span>{" "}
+                {(70 - airData.OZONE).toFixed(1)} ppb less
               </td>
             </tr>
 
@@ -67,11 +91,11 @@ const OutterAir = (props) => {
                   Carbon monoxide
                 </a>
               </td>
-              <td> {Number(props.airData.CO).toFixed(1)} ppm</td>
+              <td> {Number(airData.CO).toFixed(1)} ppm</td>
               <td> 35 ppm (1-hour) </td>
               <td>
                 {" "}
-                <span class="good"></span> {(35 - props.airData.CO).toFixed(1)}{" "}
+                <span className="good"></span> {(35 - airData.CO).toFixed(1)}{" "}
                 ppm less
               </td>
             </tr>
@@ -83,12 +107,12 @@ const OutterAir = (props) => {
                   Nitrogen dioxide
                 </a>
               </td>
-              <td> {Number(props.airData.NO2).toFixed(1)} ppb</td>
+              <td> {Number(airData.NO2).toFixed(1)} ppb</td>
               <td> 100 ppb (1-hour)</td>
               <td>
                 {" "}
-                <span class="good"></span>{" "}
-                {(100 - props.airData.NO2).toFixed(1)} ppb less
+                <span className="good"></span>{" "}
+                {(100 - airData.NO2).toFixed(1)} ppb less
               </td>
             </tr>
 
@@ -99,11 +123,11 @@ const OutterAir = (props) => {
                   Sulfur dioxide
                 </a>
               </td>
-              <td> {Number(props.airData.SO2).toFixed(1)} ppb</td>
+              <td> {Number(airData.SO2).toFixed(1)} ppb</td>
               <td> 75 ppb (1-hour) </td>
               <td>
                 {" "}
-                <span class="good"></span> {(75 - props.airData.SO2).toFixed(1)}{" "}
+                <span className="good"></span> {(75 - airData.SO2).toFixed(1)}{" "}
                 ppb less
               </td>
             </tr>
@@ -111,13 +135,15 @@ const OutterAir = (props) => {
         </table>
 
         <InnerAir
-          aqi={props.airData.AQI}
-          worstAir={props.worstAir}
-          worstFinder={props.worstFinder}
+          aqi={airData.AQI}
+          worstAir={worstAir}
+          worstFinder={worstFinder}
         />
       </div>
     );
+  } else {
+    return (null)
   }
 };
 
-export default OutterAir;
+// export default OutterAir;

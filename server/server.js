@@ -116,7 +116,7 @@ app.get("/worst&best", (req, res) => {
 
   Promise.all([api.worstAQIgetter()]) // , api.bestAQIgetter()
     .then((data) => {
-      // console.log('worst only', data)
+      console.log("worst only", data);
       res.send(data);
     })
     .catch((err) => {

@@ -4,7 +4,7 @@ const DIS = path.join(__dirname, "/client/dist");
 
 module.exports = {
   mode: "development",
-  entry: `${SRC}/app.jsx`,
+  entry: `${SRC}/app.tsx`,
   output: {
     filename: "bundle.js",
     path: DIS,
